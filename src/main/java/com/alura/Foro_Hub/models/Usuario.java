@@ -12,6 +12,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios")
@@ -22,8 +25,17 @@ public class Usuario {
     @Column(name = "usuario_id")
     private Long id;
 
+    @NotBlank
+    @Size(min = 2, max = 20)
+    @Column(unique = true)
     private String nombre;
+
+    @NotBlank
+    @Email
+    @Column(unique = true)
     private String email;
+
+    @NotBlank
     private String password;
 
     @ManyToMany

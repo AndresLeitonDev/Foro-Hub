@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "topicos")
@@ -24,9 +25,17 @@ public class Topico {
     @Column(name = "topico_id")
     private Long id;
 
+    @NotBlank
     private String titulo;
+
+    @NotBlank
     private String mensaje;
+
+    @NotBlank
+    @Column(name = "fecha_creacion")
     private Date fechaCreacion;
+
+    @NotBlank
     private String status;
 
     @OneToOne
