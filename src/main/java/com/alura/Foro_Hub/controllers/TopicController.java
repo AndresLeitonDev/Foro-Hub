@@ -17,11 +17,11 @@ import com.alura.Foro_Hub.models.Topico;
 
 import jakarta.validation.Valid;
 
+
 @RestController
 @RequestMapping("/topico")
 @CrossOrigin(originPatterns = "*")
 public class TopicController {
-
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

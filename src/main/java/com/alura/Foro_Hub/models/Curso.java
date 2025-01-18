@@ -12,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "cursos")
@@ -22,9 +23,11 @@ public class Curso {
     @Column(name = "curso_id")
     private Long id;
 
+    @NotBlank
     @Column(name = "nombre")
     private String nombre;
 
+    @NotBlank
     @Column(name = "categoria")
     private String categoria;
 

@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "respuestas")
@@ -20,18 +21,22 @@ public class Respuesta {
     @Column(name = "respuesta_id")
     private Long id;
 
+    @NotBlank
     private String mensaje;
 
     @OneToOne
     @JoinColumn(name = "topico_id")
     private Topico topico;
 
+    @NotBlank
+    @Column(name = "fecha_creacion")
     private Date fechaCreacion;
 
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario autor;
 
+    @NotBlank
     private String solucion;
 
     public Respuesta() {
