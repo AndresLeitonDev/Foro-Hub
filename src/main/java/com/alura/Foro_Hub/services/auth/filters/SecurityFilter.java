@@ -1,8 +1,6 @@
 package com.alura.Foro_Hub.services.auth.filters;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.alura.Foro_Hub.models.Usuario;
 import com.alura.Foro_Hub.services.UsuarioService;
 import com.alura.Foro_Hub.services.auth.TokenJWTConfig;
 import com.alura.Foro_Hub.services.auth.TokenService;
