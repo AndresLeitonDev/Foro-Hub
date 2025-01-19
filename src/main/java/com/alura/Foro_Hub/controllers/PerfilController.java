@@ -80,7 +80,7 @@ public class PerfilController {
             if(opt.isPresent()){
                 return ResponseEntity.status(HttpStatus.CREATED).body(perfilService.update(perfil, id));
             }else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("perfil no encontrado");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Perfil no encontrado");
             }
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());

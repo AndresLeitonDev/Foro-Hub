@@ -54,6 +54,12 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/perfil/{id}").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/perfil/{id}").permitAll()
 
+                .requestMatchers(HttpMethod.GET, "/usuario").permitAll()
+                .requestMatchers(HttpMethod.GET, "/usuario/{id}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/usuario/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/usuario/{id}").permitAll()
+
                 .requestMatchers(HttpMethod.GET, "/topico").permitAll()
                 .requestMatchers(HttpMethod.POST, "/topico").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/topico").permitAll()
