@@ -40,9 +40,9 @@ public class Usuario {
 
     @ManyToMany
     @JoinTable(name = "usuario_join_perfil", 
-            joinColumns = @JoinColumn(name = "perfil_id"), 
-            inverseJoinColumns = @JoinColumn(name = "usuario_id"), 
-            uniqueConstraints = {@UniqueConstraint(columnNames = { "perfil_id", "usuario_id" }) })
+            joinColumns = @JoinColumn(name = "usuario_id"), 
+            inverseJoinColumns = @JoinColumn(name = "perfil_id"), 
+            uniqueConstraints = {@UniqueConstraint(columnNames = { "usuario_id", "perfil_id" }) })
     private List<Perfil> perfiles;
 
     public Usuario() {
