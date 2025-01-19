@@ -2,9 +2,6 @@ package com.alura.Foro_Hub.models;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.boot.autoconfigure.task.TaskExecutionProperties.Simple;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
