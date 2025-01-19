@@ -2,15 +2,20 @@ package com.alura.Foro_Hub.models;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "respuestas")
@@ -24,16 +29,23 @@ public class Respuesta {
     @NotBlank
     private String mensaje;
 
-    @OneToOne
-    @JoinColumn(name = "topico_id")
+    @ManyToOne
+    @JoinTable(name = "respuesta_join_topico", 
+            joinColumns = @JoinColumn(name = "respuesta_id"), 
+            inverseJoinColumns = @JoinColumn(name = "topico_id"), 
+            uniqueConstraints = {@UniqueConstraint(columnNames = { "respuesta_id", "topico_id" }) })
     private Topico topico;
 
-    @NotBlank
+    @NotNull
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @ManyToOne
+    @JoinTable(name = "respuesta_join_usuario", 
+            joinColumns = @JoinColumn(name = "respuesta_id"), 
+            inverseJoinColumns = @JoinColumn(name = "usuario_id"), 
+            uniqueConstraints = {@UniqueConstraint(columnNames = { "respuesta_id", "usuario_id" }) })
     private Usuario autor;
 
     @NotBlank

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,8 +39,25 @@ public class UsuarioServiceJpaImpl implements UsuarioService {
 
     @Override
     @Transactional(readOnly = true)
+    public UserDetails findByNombreUD(String nombre) {
+        return usuarioRepository.findByNombreUD(nombre);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Usuario> findByNombreOpt(String nombre) {
+        return usuarioRepository.findByNombreOpt(nombre);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<Usuario> findByEmailOpt(String email) {
+        return usuarioRepository.getUserByEmail(email);
     }
 
     @Override
