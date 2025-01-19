@@ -46,8 +46,17 @@ public class SpringSecurityConfig {
                 /* PERMISOS */
                 .requestMatchers(HttpMethod.GET, "/curso").permitAll()
                 .requestMatchers(HttpMethod.POST, "/curso").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/curso/{id}").permitAll()
+
+                .requestMatchers(HttpMethod.GET, "/perfil").permitAll()
+                .requestMatchers(HttpMethod.GET, "/perfil/{id}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/perfil").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/perfil/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/perfil/{id}").permitAll()
+
                 .requestMatchers(HttpMethod.GET, "/topico").permitAll()
                 .requestMatchers(HttpMethod.POST, "/topico").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/topico").permitAll()
 
                 .anyRequest().authenticated())
                 .csrf(config -> config.disable())
