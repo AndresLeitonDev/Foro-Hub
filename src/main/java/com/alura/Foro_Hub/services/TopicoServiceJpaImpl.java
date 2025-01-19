@@ -79,7 +79,7 @@ public class TopicoServiceJpaImpl implements TopicoService {
             topicoToUpdate.setStatus(topico.getStatus());
             topicoToUpdate.setAutor(topico.getAutor());
             topicoToUpdate.setCurso(topico.getCurso());
-            topicoToUpdate.setRespuestas(topico.getRespuestas());
+            //topicoToUpdate.setRespuestas(topico.getRespuestas());
             
             hOpt = topicoRepository.save(topicoToUpdate);
         }

@@ -1,7 +1,6 @@
 package com.alura.Foro_Hub.models;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
@@ -55,13 +53,6 @@ public class Topico {
             inverseJoinColumns = @JoinColumn(name = "usuario_id"), 
             uniqueConstraints = {@UniqueConstraint(columnNames = { "topico_id", "usuario_id" }) })
     private Usuario autor;
-
-    @OneToMany
-    @JoinTable(name = "topico_join_respuesta", 
-            joinColumns = @JoinColumn(name = "topico_id"), 
-            inverseJoinColumns = @JoinColumn(name = "respuesta_id"), 
-            uniqueConstraints = {@UniqueConstraint(columnNames = { "topico_id", "respuesta_id" }) })
-    private List<Respuesta> respuestas;
 
     public Topico() {
     }
@@ -128,13 +119,5 @@ public class Topico {
     public void setAutor(Usuario autor) {
         this.autor = autor;
     }
-
-    public List<Respuesta> getRespuestas() {
-        return respuestas;
-    }
-
-    public void setRespuestas(List<Respuesta> respuestas) {
-        this.respuestas = respuestas;
-    }  
 
 }

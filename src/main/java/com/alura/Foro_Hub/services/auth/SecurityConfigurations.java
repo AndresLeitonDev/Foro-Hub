@@ -1,9 +1,10 @@
-package com.alura.Foro_Hub.auth;
+package com.alura.Foro_Hub.services.auth;
 
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -15,19 +16,22 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-//import com.creangel.app.backend_admin_ifindit.auth.filters.JwtAuthenticationFilter;
-//import com.creangel.app.backend_admin_ifindit.auth.filters.JwtValidationFilter;
+import com.alura.Foro_Hub.services.auth.filters.SecurityFilter;
 
 @Configuration
-public class SpringSecurityConfig {
+public class SecurityConfigurations {
 
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
+
+    @Autowired
+    private SecurityFilter securityFilter;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -44,34 +48,22 @@ public class SpringSecurityConfig {
         return http.authorizeHttpRequests(authRules -> authRules
 
                 /* PERMISOS */
+                .requestMatchers(HttpMethod.POST, "/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "/curso").permitAll()
                 .requestMatchers(HttpMethod.GET, "/curso/{id}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/curso").permitAll()
-                .requestMatchers(HttpMethod.PUT, "/curso/{id}").permitAll()
-                .requestMatchers(HttpMethod.DELETE, "/curso/{id}").permitAll()
-
                 .requestMatchers(HttpMethod.GET, "/perfil").permitAll()
                 .requestMatchers(HttpMethod.GET, "/perfil/{id}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/perfil").permitAll()
-                .requestMatchers(HttpMethod.PUT, "/perfil/{id}").permitAll()
-                .requestMatchers(HttpMethod.DELETE, "/perfil/{id}").permitAll()
-
                 .requestMatchers(HttpMethod.GET, "/usuario").permitAll()
                 .requestMatchers(HttpMethod.GET, "/usuario/{id}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
-                .requestMatchers(HttpMethod.PUT, "/usuario/{id}").permitAll()
-                .requestMatchers(HttpMethod.DELETE, "/usuario/{id}").permitAll()
-
                 .requestMatchers(HttpMethod.GET, "/topico").permitAll()
                 .requestMatchers(HttpMethod.GET, "/topico/{id}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/topico/curso/{curso}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/topico/anio/{anio}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/topico/order").permitAll()
-                .requestMatchers(HttpMethod.POST, "/topico").permitAll()
-                .requestMatchers(HttpMethod.PUT, "/topico/{id}").permitAll()
-                .requestMatchers(HttpMethod.DELETE, "/topico/{id}").permitAll()
-
+                .requestMatchers(HttpMethod.GET, "/respuesta").permitAll()
+                .requestMatchers(HttpMethod.GET, "/respuesta/{id}").permitAll()
                 .anyRequest().authenticated())
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(config -> config.disable())
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -96,4 +88,5 @@ public class SpringSecurityConfig {
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
     }
+
 }
