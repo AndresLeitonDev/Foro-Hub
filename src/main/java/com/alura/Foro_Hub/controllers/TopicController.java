@@ -3,6 +3,7 @@ package com.alura.Foro_Hub.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,11 +24,14 @@ import jakarta.validation.Valid;
 @CrossOrigin(originPatterns = "*")
 public class TopicController {
     
+    @Autowired
+    private CentralMethods centralMethods;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@Valid @RequestBody Topico topico, BindingResult result) { // RequestBody El                                                                                    // body de la peticion
         if (result.hasErrors()) {
-            return validation(result);
+            return centralMethods.validation(result);
         }
         /*try {
             return ResponseEntity.status(HttpStatus.CREATED).body(organizationService.save(org));
@@ -35,15 +39,5 @@ public class TopicController {
             return ResponseEntity.status(500).body(e.getMessage());
         }*/
         return ResponseEntity.status(HttpStatus.CREATED).body(topico);
-    }
-    
-    
-    public ResponseEntity<?> validation(BindingResult result) {
-        Map<String, String> errors = new HashMap<>();
-
-        result.getFieldErrors().forEach(err -> {
-            errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
-        });
-        return ResponseEntity.badRequest().body(errors);
     }
 }
