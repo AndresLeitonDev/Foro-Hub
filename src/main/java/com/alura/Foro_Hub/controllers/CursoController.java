@@ -68,7 +68,7 @@ public class CursoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Curso curso, BindingResult result, @PathVariable Long id) {
+    public ResponseEntity<?> update(@Valid @RequestBody Curso curso, BindingResult result, @PathVariable Long id) {
         if (result.hasErrors()) {
             return centralMethods.validation(result);
         }
@@ -85,7 +85,7 @@ public class CursoController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         try {
             Optional<Curso> opt = cursoService.findById(id);
             if(opt.isPresent()){

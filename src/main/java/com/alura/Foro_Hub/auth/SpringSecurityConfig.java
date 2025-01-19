@@ -45,8 +45,10 @@ public class SpringSecurityConfig {
 
                 /* PERMISOS */
                 .requestMatchers(HttpMethod.GET, "/curso").permitAll()
+                .requestMatchers(HttpMethod.GET, "/curso/{id}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/curso").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/curso/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/curso/{id}").permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/perfil").permitAll()
                 .requestMatchers(HttpMethod.GET, "/perfil/{id}").permitAll()
@@ -61,8 +63,13 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, "/usuario/{id}").permitAll()
 
                 .requestMatchers(HttpMethod.GET, "/topico").permitAll()
+                .requestMatchers(HttpMethod.GET, "/topico/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/topico/curso/{curso}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/topico/anio/{anio}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/topico/order").permitAll()
                 .requestMatchers(HttpMethod.POST, "/topico").permitAll()
-                .requestMatchers(HttpMethod.PUT, "/topico").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/topico/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/topico/{id}").permitAll()
 
                 .anyRequest().authenticated())
                 .csrf(config -> config.disable())
