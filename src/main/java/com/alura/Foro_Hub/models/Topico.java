@@ -12,11 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "topicos")
@@ -33,38 +34,43 @@ public class Topico {
     @NotBlank
     private String mensaje;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @NotNull
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
 
     @NotBlank
     private String status;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario autor;
-    
-    @OneToOne
-    @JoinColumn(name = "curso_id")
+    @ManyToOne
+    @JoinTable(name = "topico_join_curso", 
+            joinColumns = @JoinColumn(name = "topico_id"), 
+            inverseJoinColumns = @JoinColumn(name = "curso_id"), 
+            uniqueConstraints = {@UniqueConstraint(columnNames = { "topico_id", "curso_id" }) })
     private Curso curso;
+
+    @ManyToOne
+    @JoinTable(name = "topico_join_usuario", 
+            joinColumns = @JoinColumn(name = "topico_id"), 
+            inverseJoinColumns = @JoinColumn(name = "usuario_id"), 
+            uniqueConstraints = {@UniqueConstraint(columnNames = { "topico_id", "usuario_id" }) })
+    private Usuario autor;
 
     @OneToMany
     @JoinTable(name = "topico_join_respuesta", 
-            joinColumns = @JoinColumn(name = "respuesta_id"), 
-            inverseJoinColumns = @JoinColumn(name = "topico_id"), 
-            uniqueConstraints = {@UniqueConstraint(columnNames = { "respuesta_id", "topico_id" }) })
+            joinColumns = @JoinColumn(name = "topico_id"), 
+            inverseJoinColumns = @JoinColumn(name = "respuesta_id"), 
+            uniqueConstraints = {@UniqueConstraint(columnNames = { "topico_id", "respuesta_id" }) })
     private List<Respuesta> respuestas;
 
     public Topico() {
     }
 
-    public Topico(String titulo, String mensaje, Date fechaCreacion, String status, Usuario autor, Curso curso) {
+    public Topico(String titulo, String mensaje, Date fechaCreacion, String status, Usuario autor) {
         this.titulo = titulo;
         this.mensaje = mensaje;
         this.fechaCreacion = fechaCreacion;
         this.status = status;
-        this.autor = autor;
-        this.curso = curso;
     }
 
     public Long getId() {
@@ -107,20 +113,20 @@ public class Topico {
         this.status = status;
     }
 
-    public Usuario getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
-    }
-
     public Curso getCurso() {
         return curso;
     }
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Usuario autor) {
+        this.autor = autor;
     }
 
     public List<Respuesta> getRespuestas() {
