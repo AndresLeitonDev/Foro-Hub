@@ -44,6 +44,8 @@ public class SpringSecurityConfig {
         return http.authorizeHttpRequests(authRules -> authRules
 
                 /* PERMISOS */
+                .requestMatchers(HttpMethod.GET, "/curso").permitAll()
+                .requestMatchers(HttpMethod.POST, "/curso").permitAll()
                 .requestMatchers(HttpMethod.GET, "/topico").permitAll()
                 .requestMatchers(HttpMethod.POST, "/topico").permitAll()
 
